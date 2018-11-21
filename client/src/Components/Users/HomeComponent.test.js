@@ -1,5 +1,5 @@
 import React from 'react';
-import {HomeComponent} from './HomeComponent.jsx';
+import {HomeComponent} from './HomeComponent.js';
 import renderer from 'react-test-renderer';
 
 test('renders without crashing', () => {
