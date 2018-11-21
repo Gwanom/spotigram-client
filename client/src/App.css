@@ -59,7 +59,7 @@
   padding-top:20px;
   /* padding-left:3%; */
   /* border: solid; */
-  width: 30vw;
+  /* width: 30vw; */
   margin: auto;
   /* width: 100vw; */
   /* margin: auto; */
@@ -87,13 +87,50 @@
 }
 
 .register_div{
+  /* margin-top: 10px; */
   padding-top: 40px;
-}
-.register_form{
-  border:groove;
-  border-radius: 10px;
-  padding: 20px;
+  /* height: 100%; */
   width: 60vw;
   margin: auto;
-  font-size: 20px;
+
+}
+.register_form{
+  /* height: 40%; */
+  /* width: 100vw; */
+  padding: 20px;
+  /* width: 35vw; */
+  margin: auto;
+  /* padding:-20px; */
+  font-size: 2vh;
+  border:groove;
+  border-radius: 10px;
+  overflow: scroll;
+  overflow-y: hidden;
+  overflow-x: hidden;
+
+}
+#first_group{
+  height: 16vh;
+  float: left;
+  max-width: 20vw;
+  margin-right: 5px;
+  /* padding-right: 5px; */
+}
+#second_group{
+  float:left;
+  /* display: inline-block; */
+  /* width: auto; */
+  height: 100%;
+  max-width: 20vw;
+  /* width: 100px; */
+  /* height: 50px; */
+
+}
+
+.register_div form input{
+  height: 5vh;
+  margin-bottom: .5vh;
+  /* width: 80%; */
+  /* float:right; */
+  /* font-size: 5px; */
 }
