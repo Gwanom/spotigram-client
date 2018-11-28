@@ -13,19 +13,19 @@ export class EditProfileComponent extends React.Component {
                     <form className="edit_profile_form">
                         <div className="form-group">
                             <label htmlFor="usernameInput">Username</label>
-                            <input type="text" className="form-control" id="usernameInput" placeholder={this.props.user.username} />
+                            <input type="text" className="form-control" id="usernameInput" placeholder={this.state.user.username} />
                         </div>
                         <div className="form-group">
                             <label htmlFor="firstNameInput">First Name</label>
-                            <input type="text" className="form-control" id="firstNameInput" placeholder={this.props.user.firstName} />
+                            <input type="text" className="form-control" id="firstNameInput" placeholder={this.state.user.firstName} />
                         </div>
                         <div className="form-group">
                             <label htmlFor="lastNameInput">Last Name</label>
-                            <input type="text" className="form-control" id="lastNameInput" placeholder={this.props.user.lastName} />
+                            <input type="text" className="form-control" id="lastNameInput" placeholder={this.state.user.lastName} />
                         </div>
                         <div className="form-group">
                             <label htmlFor="emailInput">Email</label>
-                            <input type="email" className="form-control" id="emailInput" placeholder={this.props.user.email} />
+                            <input type="email" className="form-control" id="emailInput" placeholder={this.state.user.email} />
                         </div>
                         {/* <Link to="/users/password"> */}
                             {/* <button type="button" className="btn btn-secondary">Change Password</button> */}

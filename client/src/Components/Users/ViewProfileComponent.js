@@ -9,11 +9,11 @@ export class ViewProfileComponent extends React.Component {
         return (
             <React.Fragment>
                 <div className="viewProfile">
-                    Username: {this.props.user.username}<br />
-                    Name: {this.props.user.firstName} {this.props.user.lastName}<br />
-                    Email: {this.props.user.email}<br />
-                    Banned: {this.props.user.isbanned}<br />
-                    Last Logged In: {this.props.user.lastLogin}
+                    Username: {this.state.user.username}<br />
+                    Name: {this.state.user.firstName} {this.props.user.lastName}<br />
+                    Email: {this.state.user.email}<br />
+                    Banned: {this.state.user.isbanned}<br />
+                    Last Logged In: {this.state.user.lastLogin}
                 </div>
             </React.Fragment>
         )
