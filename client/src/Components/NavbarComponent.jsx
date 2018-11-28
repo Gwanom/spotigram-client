@@ -9,7 +9,7 @@ export class NavbarComponent extends React.Component{
         this.state = {searchField: ''};
     
         this.search = this.search.bind(this);
-      }
+    }
 
     search(event) {
         alert('A search was submitted for: ' + this.state.searchField);

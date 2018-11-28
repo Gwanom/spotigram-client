@@ -23,6 +23,8 @@ export class HomeComponent extends React.Component{
     render(){
         return(
             <React.Fragment>
+
+                
                 <div className="homePage">
                     <div  id="login_buttons" role="group">
                         <button type="button" value="signin" onClick={this.getPage} className="btn btn-secondary">SignIn</button>
