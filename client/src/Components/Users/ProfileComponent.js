@@ -6,8 +6,8 @@ export class ProfileComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            viewProfile: <ViewProfileComponent />,
-            editProfile: <EditProfileComponent />,
+            viewProfile: <ViewProfileComponent data={this.state.user}/>,
+            editProfile: <EditProfileComponent data={this.state.user}/>,
             item: "view"
         }
     }
