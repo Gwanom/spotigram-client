@@ -1,13 +1,22 @@
-<<<<<<< HEAD
 import React from "react";
+import { connect } from "react-redux";
+import {BrowserRouter,Route, Switch} from "react-router-dom";
 
-export class SignInComponent extends React.Component{
+import * as userAction from "../../Redux/Actions/User.Actions";
+import ProfileComponent  from "./ProfileComponent";
+
+
+export class SignInComponent extends React.PureComponent{
     constructor(props) {
         super(props);
-        this.state = {name: '',
-                    password: ''};
+        this.state = {
+            name: '',
+            password: '',
+            failed:false,
+            success:false
+        };
+        this.props.storeData(null);
     
-        //this.login = this.login.bind(this);
     }
 
     passwordChange = (e) => {
@@ -24,9 +33,9 @@ export class SignInComponent extends React.Component{
         })
     }
 
-    login=(event) => {
-        //alert('A login was submitted for: ' + this.state.name);
-        //console.log('A login was submitted for: ' + this.state.name);
+    login = (event) => {
+        event.preventDefault();
+
         var cred;
         if (this.state.name.includes("@")) {
             var email = this.state.name;
@@ -49,15 +58,28 @@ export class SignInComponent extends React.Component{
             'Content-Type': 'application/json'
             },
             credentials: 'include'
-        }).then(resp => resp.json()).then(resp=>{
-            console.log(resp);
-            console.log(resp.info[0].username);
+        }).then(resp=>{
+            if(resp.status === 200){
+                this.setState({
+                    ...this.state,
+                    failed:false
+                })
+                resp.json().then(r=>{
+                    this.props.storeData(r.info);
+                    console.log(this.props.userData);
+                    this.setState({
+                        ...this.state,
+                        success:true
+                    })
+                    window.location = "/profile";
+                })
+            }else{
+                this.setState({
+                    ...this.state,
+                    failed:true
+                })
+            }
         })
-        .catch(err => {
-          console.log(err);
-        });
-
-        event.preventDefault();
     }
 
     // POST credential with either username OR email fields, followed by password field
@@ -78,33 +100,29 @@ export class SignInComponent extends React.Component{
                         <button type = "submit">Log In</button>                
                         <small><a className="nav-link" href="/forgot">Forgot Password</a></small>
                     </form>
+                    {
+                            (this.state.failed === true) &&
+                            <div className="alert alert-danger alert-dismissible fade show" role="alert">
+                                <strong>Wrong Password</strong>
+                                <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                                     <span aria-hidden="true">&times;</span>
+                                 </button>
+                            </div>
+                    }              
                 </div>
             </React.Fragment>
         )
     }
 }
 
-=======
-import React from "react";
-
-export class SignInComponent extends React.Component{
-    render(){
-        return(
-            <React.Fragment>
-                <div className="login_div">
-                    <form className="login_form">
-                        <div className="form-group">
-                            <input type="text" title="Enter username or email address" placeholder="Username or Email" title="Enter username or email" autoComplete="false"  className="form-control" id="inputEmail"/>
-                        </div>
-                        <div className="form-group">
-                            <input type="password" placeholder="Password" className="form-control" autoComplete="false" id="inputPassword"></input>
-                        </div>   
-                        <small><a className="nav-link" href="/forgot">Forgot Password</a></small>                
-                    </form>
-                </div>
-            </React.Fragment>
-        )
+const mapStateToProps = (state) =>{
+    return{
+        userData: state.userReducer
     }
 }
 
->>>>>>> 529d8aa3d1f90cad33b24f67587e3bd1982fe19d
+const mapDispatchToProps = {
+    storeData: userAction.storeData
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(SignInComponent);
