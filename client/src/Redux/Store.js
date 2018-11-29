@@ -5,8 +5,7 @@ import index from './Reducers'
 
 function saveToStorage(state){
   try{
-    const stateData = JSON.stringify(state);
-    localStorage.setItem("state",stateData);
+    localStorage.setItem("state",JSON.stringify(state));
   }catch(e){
 
   }
