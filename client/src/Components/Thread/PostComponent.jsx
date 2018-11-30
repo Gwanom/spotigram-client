@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as userAction from "../../Redux/Actions/User.Actions";
-import ProfileComponent  from "./ProfileComponent";
+import ProfileComponent  from "../Users/ProfileComponent";
 import {ReplyComponent} from "./ReplyComponent";
 import {NewReplyComponent} from "./NewReplyComponent";
 import PropTypes from 'prop-types';
@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 export class PostComponent extends React.Component{
     constructor(props) {
         this.setState({
-            post: 
+            post: null
         })
     }
 
@@ -47,7 +47,7 @@ export class PostComponent extends React.Component{
 
 PostComponent.propTypes = {
     post: PropTypes.shape({
-        id: PropTypes.number.isRequired;
+        id: PropTypes.number.isRequired
     })
 }
 

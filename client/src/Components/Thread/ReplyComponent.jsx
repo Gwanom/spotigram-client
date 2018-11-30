@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as userAction from "../../Redux/Actions/User.Actions";
-import ProfileComponent  from "./ProfileComponent";
+import ProfileComponent  from "../Users/ProfileComponent";
 import PropTypes from 'prop-types';
 
 export class ReplyComponent extends React.Component{
@@ -17,8 +17,8 @@ export class ReplyComponent extends React.Component{
 
 ReplyComponent.propTypes = {
     reply: PropTypes.shape({
-        author: PropTypes.string.isRequired;
-        content: PropTypes.string.isRequired;
+        author: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired
     })
 }
 
@@ -32,4 +32,4 @@ const mapDispatchToProps = {
     storeData: userAction.storeData
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(PostComponent);
+export default connect(mapStateToProps,mapDispatchToProps)(ReplyComponent);
