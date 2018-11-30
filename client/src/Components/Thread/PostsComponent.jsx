@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as userAction from "../../Redux/Actions/User.Actions";
-import ProfileComponent  from "./ProfileComponent";
+import ProfileComponent  from "../Users/ProfileComponent";
 import {PostComponent} from "./PostComponent";
 import PropTypes from 'prop-types';
 
@@ -17,8 +17,8 @@ export class PostsComponent extends React.Component {
     }
     
     componentDidMount() {
+        let path = "";
         switch (this.props.value) {
-            let path = ""
             case "song":
                 path = `/songs/title/${this.state.value}`;
                 break;
@@ -35,7 +35,9 @@ export class PostsComponent extends React.Component {
         fetch(`http://spotigram-env-1.m2phmu28yw.us-east-2.elasticbeanstalk.com${path}`)
         .then(resp => resp.json())
         .then(data => {
-            posts: data
+            this.setState({
+                posts: data
+            })
         })
     }
     
@@ -43,7 +45,7 @@ export class PostsComponent extends React.Component {
         return (
             <React.Fragment>
                 {this.state.replies.map(replies => 
-                    <PostComponent post={this.state.posts}>)}
+                    <PostComponent post={this.state.posts}/>)}
             </React.Fragment>
         )
     }
@@ -51,8 +53,8 @@ export class PostsComponent extends React.Component {
 
 PostsComponent.propTypes = {
     type: PropTypes.shape({
-        type: PropTypes.string.isRequired;
-        value: PropTypes.string.isRequired;
+        type: PropTypes.string.isRequired,
+        value: PropTypes.string.isRequired
     })
 }
 
