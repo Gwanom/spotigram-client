@@ -1,13 +1,12 @@
-import {USER} from "../Actions/User.Actions";
+import {TYPES} from "../Actions/User.Actions";
 
 const initialState = {
-    userEntries: []
+    userEntries: [],
 }
 
 export const userReducer = (state = initialState, action)=>{
-    console.log(state);
     switch(action.type){
-        case USER:{
+        case TYPES.USER:{
             return {
                 ...state,
                 userEntries: action.payload

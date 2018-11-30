@@ -1,12 +1,18 @@
 import React from "react";
 
+import { connect } from "react-redux";
+
+import * as userAction from "../Redux/Actions/User.Actions";
+
 export class NavbarComponent extends React.Component{
     // Need to get username
     // If following is implemented, also need to get updates from followed users/threads/songs/artists
 
     constructor(props) {
         super(props);
-        this.state = {searchField: ''};
+        this.state = {
+            searchField: ''
+        };
     
     }
 
@@ -14,16 +20,18 @@ export class NavbarComponent extends React.Component{
         alert('A search was submitted for: ' + this.state.searchField);
         event.preventDefault();
     }
-    logout = (event) =>{
-        sessionStorage.clear();
+
+    logout = () =>{
+        this.props.storeAuth(null);
+        this.props.storeData(null);
+        window.location.href = "/";
     }
 
     render(){
-        console.log();
         return(
             <React.Fragment>
                 <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-                    <a className="navbar-brand" href="./user-profile">{this.props.user_data.info[0].firstName}</a>
+                    <label className="navbar-brand" href="/profile">Hello {this.props.user_data.firstName}</label>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                     </button>
@@ -31,7 +39,7 @@ export class NavbarComponent extends React.Component{
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
-                            <a className="nav-link" href="/profile">Logout</a>
+                            <a className="nav-link" href="/">Logout</a>
                         </li>
                         <li className="divider"></li>
                         <li className="nav-item dropdown">
@@ -54,7 +62,7 @@ export class NavbarComponent extends React.Component{
                                 <option>Albums</option>
                                 <option>Songs</option>
                             </select>
-                        <button onClick={this.search} className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        <button onClick={this.logout} className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                     </div>
                 </nav>
@@ -62,3 +70,14 @@ export class NavbarComponent extends React.Component{
         )
     }
 }
+const mapStateToProps = (state) =>{
+    return{
+        userData: state.userReducer.userEntries,
+    }
+}
+
+const mapDispatchToProps = {
+    storeData: userAction.storeData,
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(NavbarComponent);

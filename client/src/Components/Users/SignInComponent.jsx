@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import {BrowserRouter,Route, Switch} from "react-router-dom";
 
 import * as userAction from "../../Redux/Actions/User.Actions";
-import ProfileComponent  from "./ProfileComponent";
+import SpotigramClient from "../../Utilities/HTTPHelper";
+// import ProfileComponent  from "./ProfileComponent";
 
 
 export class SignInComponent extends React.PureComponent{
@@ -13,9 +13,8 @@ export class SignInComponent extends React.PureComponent{
             name: '',
             password: '',
             failed:false,
-            success:false
         };
-        this.props.storeData(null);
+        //this.props.storeData(null);
     
     }
 
@@ -35,54 +34,68 @@ export class SignInComponent extends React.PureComponent{
 
     login = (event) => {
         event.preventDefault();
-
-        var cred;
-        if (this.state.name.includes("@")) {
-            var email = this.state.name;
-            cred = {
-                email,
-                password: this.state.password
-              }
-        } else {
-            const username = this.state.name;
-            cred = {
-                username,
-                password: this.state.password
-              }
+        let creds = {
+            password:this.state.password
         }
-
-        fetch('http://localhost:8088/users/login', {
-            method: 'POST',
-            body: JSON.stringify(cred),
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            credentials: 'include'
-        }).then(resp=>{
-            if(resp.status === 200){
-                this.setState({
-                    ...this.state,
-                    failed:false
-                })
-                resp.json().then(r=>{
-                    this.props.storeData(r.info);
-                    console.log(this.props.userData);
+        // if this.state.name has a @ then it means that it is an email, else a username
+        // we then assign this.state.name to that value to be passed as credentials
+        creds[String((this.state.name.includes("@") === true) ? "email" : "username")] = this.state.name
+        console.log("hello");
+        SpotigramClient.post("/users/login",creds).then(
+            resp=>{
+                if(resp.status === 200){
+                    console.log(resp);
+                    SpotigramClient.defaults.headers.common['Authorization'] = resp.headers.authentication;
                     this.setState({
                         ...this.state,
-                        success:true
+                        failed:false
                     })
+                    this.props.storeData(resp.data);
+                    // this.props.storeAuth(resp.data.replies);
                     window.location = "/profile";
-                })
-            }else{
-                this.setState({
-                    ...this.state,
-                    failed:true
-                })
-            }
-        })
+                }
+                else{
+                    this.setState({
+                        ...this.state,
+                        failed:true
+                    })
+                }
+                
+                
+            })
+
+        // fetch('http://localhost:8088/users/login', {
+        //     method: 'POST',
+        //     body: JSON.stringify(creds),
+        //     headers: {
+        //     'Content-Type': 'application/json'
+        //     },
+        //     credentials: 'include'
+        // }).then(resp=>{
+        //     if(resp.status === 200){
+        //         this.setState({
+        //             ...this.state,
+        //             failed:false
+        //         })
+        //         resp.json().then(r=>{
+        //             this.props.storeData(r);
+        //             this.props.storeAuth(resp.headers.get("authentication"));
+        //             this.setState({
+        //                 ...this.state,
+        //                 success:true
+        //             })
+        //             console.log(this.props.authentication);
+        //             //window.location = "/profile";
+        //         })
+        //     }else{
+        //         this.setState({
+        //             ...this.state,
+        //             failed:true
+        //         })
+        //     }
+        // })
     }
 
-    // POST credential with either username OR email fields, followed by password field
 
     render(){
         return(
@@ -117,12 +130,12 @@ export class SignInComponent extends React.PureComponent{
 
 const mapStateToProps = (state) =>{
     return{
-        userData: state.userReducer
+        userData: state.userReducer.userEntries,
     }
 }
 
 const mapDispatchToProps = {
-    storeData: userAction.storeData
+    storeData: userAction.storeData,
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(SignInComponent);

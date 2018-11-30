@@ -7,7 +7,6 @@ import "./include/bootstrap";
 import {BrowserRouter,Route, Switch} from "react-router-dom";
 import  HomeComponent  from './Components/Users/HomeComponent';
 import  ProfileComponent  from './Components/Users/ProfileComponent';
-import { PersistGate } from 'redux-persist/integration/react'
 
 
 class App extends Component {
@@ -16,9 +15,11 @@ class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <>
+            {/* <NavbarComponent/> */}
             <div className="App">
               <Switch>
                 <Route path="/profile" component={ProfileComponent}/>
+                <Route path="/" component={HomeComponent}/>
                 <Route component={HomeComponent}/>
               </Switch>
             </div>
