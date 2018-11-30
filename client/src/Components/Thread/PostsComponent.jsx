@@ -49,16 +49,10 @@ export class PostsComponent extends React.Component {
     }
 }
 
-ReplyComponent.propTypes = {
+PostsComponent.propTypes = {
     type: PropTypes.shape({
         type: PropTypes.string.isRequired;
         value: PropTypes.string.isRequired;
-    })
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(PostComponent);PostComponent.propTypes = {
-    post: PropTypes.shape({
-        id: PropTypes.number.isRequired;
     })
 }
 
@@ -72,4 +66,4 @@ const mapDispatchToProps = {
     storeData: userAction.storeData
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(PostComponent);
+export default connect(mapStateToProps,mapDispatchToProps)(PostsComponent);
