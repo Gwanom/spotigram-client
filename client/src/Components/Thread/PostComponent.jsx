@@ -1,32 +1,58 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as userAction from "../../Redux/Actions/User.Actions";
+import ProfileComponent  from "./ProfileComponent";
+import {ReplyComponent} from "./ReplyComponent";
+import {NewReplyComponent} from "./NewReplyComponent";
+import PropTypes from 'prop-types';
 
 export class PostComponent extends React.Component{
 
+    componentDidMount() {
+        fetch(`http://spotigram-env-1.m2phmu28yw.us-east-2.elasticbeanstalk.com/posts/${post.id}`)
+        .then(resp => resp.json())
+        .then(data => {
+            this.setState({
+                post: data
+            })
+        })
+        fetch(`http://spotigram-env-1.m2phmu28yw.us-east-2.elasticbeanstalk.com/replies/parent/${post.id}`)
+        .then(resp => resp.json())
+        .then(data => {
+            this.setState({
+                replies: data
+            })
+        })
+    }
+
     render(){
         return(
-            // responses is the combined Fragments for all the PostComponents that are responses to this PostComponent
             <React.Fragment>
-                <li class="list-group-item show"><img src="UserIcon.png" class="img-circle img-thumbnail"/>
-                        <article><h5>{this.state.user}</h5>{this.state.content}</article></li>
-                <li class="list-group-item hide border-0"><ul class="list-group">
-                    {this.state.responses}
-                </ul></li>
+                Subject: {this.state.post.topicSong.songTitle} by {this.state.post.topicArtist.name}, from the album {this.state.post.topicAlbum.title}
+                By: {this.state.post.author.username}
+                {this.state.post.content}
+                {this.state.replies.map(replies => 
+                    <ReplyComponent author={replies.author.username} content={replies.content}>)}
+                {/* <NewReplyComponent id={this.props.id} user={this}/> */}
             </React.Fragment>           
         )
     }
 }
+
+PostComponent.propTypes = {
+    post: PropTypes.shape({
+        id: PropTypes.number.isRequired;
+    })
+}
+
 const mapStateToProps = (state) =>{
     return{
-        userData: state.userReducer.userEntries,
-        authentication:state.userReducer.auth
+        userData: state.userReducer
     }
 }
 
 const mapDispatchToProps = {
-    storeData: userAction.storeData,
-    storeAuth: userAction.storeAuth
+    storeData: userAction.storeData
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(PostComponent);
