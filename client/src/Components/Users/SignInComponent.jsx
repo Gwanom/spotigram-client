@@ -40,7 +40,6 @@ export class SignInComponent extends React.PureComponent{
         // if this.state.name has a @ then it means that it is an email, else a username
         // we then assign this.state.name to that value to be passed as credentials
         creds[String((this.state.name.includes("@") === true) ? "email" : "username")] = this.state.name
-        console.log("hello");
         SpotigramClient.post("/users/login",creds).then(
             resp=>{
                 SpotigramClient.defaults.headers.common['Authorization'] = resp.headers.authentication;
