@@ -7,16 +7,22 @@ import {NewReplyComponent} from "./NewReplyComponent";
 import PropTypes from 'prop-types';
 
 export class PostComponent extends React.Component{
+    constructor(props) {
+        this.setState({
+            post: 
+        })
+    }
+
 
     componentDidMount() {
-        fetch(`http://spotigram-env-1.m2phmu28yw.us-east-2.elasticbeanstalk.com/posts/${post.id}`)
+        fetch(`http://spotigram-env-1.m2phmu28yw.us-east-2.elasticbeanstalk.com/posts/${this.post.id}`)
         .then(resp => resp.json())
         .then(data => {
             this.setState({
                 post: data
             })
         })
-        fetch(`http://spotigram-env-1.m2phmu28yw.us-east-2.elasticbeanstalk.com/replies/parent/${post.id}`)
+        fetch(`http://spotigram-env-1.m2phmu28yw.us-east-2.elasticbeanstalk.com/replies/parent/${this.post.id}`)
         .then(resp => resp.json())
         .then(data => {
             this.setState({
@@ -32,7 +38,7 @@ export class PostComponent extends React.Component{
                 By: {this.state.post.author.username}
                 {this.state.post.content}
                 {this.state.replies.map(replies => 
-                    <ReplyComponent author={replies.author.username} content={replies.content}>)}
+                    <ReplyComponent author={replies.author.username} content={replies.content}/>)}
                 {/* <NewReplyComponent id={this.props.id} user={this}/> */}
             </React.Fragment>           
         )
