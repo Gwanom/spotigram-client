@@ -7,6 +7,7 @@ import "./include/bootstrap";
 import {BrowserRouter,Route, Switch} from "react-router-dom";
 import  HomeComponent  from './Components/Users/HomeComponent';
 import  ProfileComponent  from './Components/Users/ProfileComponent';
+import  ThreadComponent  from './Components/Thread/ThreadComponent';
 
 
 class App extends Component {
@@ -19,7 +20,7 @@ class App extends Component {
             <div className="App">
               <Switch>
                 <Route path="/profile" component={ProfileComponent}/>
-                <Route path="/" component={HomeComponent}/>
+                <Route path="/thread" component={ThreadComponent}/>
                 <Route component={HomeComponent}/>
               </Switch>
             </div>

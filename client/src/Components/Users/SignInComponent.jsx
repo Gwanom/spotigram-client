@@ -44,8 +44,8 @@ export class SignInComponent extends React.PureComponent{
         SpotigramClient.post("/users/login",creds).then(
             resp=>{
                 SpotigramClient.defaults.headers.common['Authorization'] = resp.headers.authentication;
-                this.props.storeData(resp.data);
-                window.location = "/profile";
+                this.props.storeData(resp.data.info[0]);
+                this.props.history.push("/profile");
             });
             this.setState({
                 ...this.state,
@@ -76,7 +76,7 @@ export class SignInComponent extends React.PureComponent{
                                 <strong>Wrong Password</strong>
                                 <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                                      <span aria-hidden="true">&times;</span>
-                                 </button>
+                                </button>
                             </div>
                     }              
                 </div>

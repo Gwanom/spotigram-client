@@ -6,7 +6,7 @@ export class HomeComponent extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            signin:<SignInComponent/>,
+            signin:<SignInComponent history={this.props.history}/>,
             signup:<SignUpComponent/>,
             item: "signin"
         }

@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  height: 100vh;
 }
 
 .App-logo {
@@ -135,3 +136,74 @@
   /* font-size: 5px; */
 }
 
+.post_url{
+  cursor: pointer;
+}
+.hidden{
+  display: none;
+}
+.show span{
+  color: #9A0F63;
+  /* display:block; */
+}
+.show li{
+  background-color: #64DA59;
+  color: #282c34;
+  border: 1px solid ;
+  border-radius: 10px;
+  padding: 3px;
+  margin-bottom: 5px;
+}
+
+.Threads{
+  float:left;
+  border-left:solid;
+  border-right:solid;
+  border-radius: 15px;
+  padding:10px;
+}
+
+/* Remove default bullets */
+.myUL {
+  margin: 0;
+  padding:0;
+  list-style-type: none;
+  float:left;
+}
+.myUL li{
+  list-style-type: none;
+}
+/* Remove margins and padding from the parent ul */
+/* #myUL {
+  margin: 0;
+  padding: 0;
+} */
+
+/* Style the caret/arrow */
+.caret {
+  cursor: pointer; 
+  user-select: none;
+}
+
+/* Create the caret/arrow with a unicode, and style it */
+/* .caret::before {
+  content: "\25B6";
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+} */
+
+/* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+/* .caret-down::before {
+  transform: rotate(90deg); 
+} */
+
+/* Hide the nested list */
+/* .nested {
+  display: none;
+} */
+
+/* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+/* .active {
+  display: block;
+} */
