@@ -19,7 +19,7 @@ export class ProfileComponent extends React.PureComponent {
                 <div className="">
                     <p>Replies</p>
 
-                     {
+                    {
                          this.props.userData.userEntries.replies.map(replies => replies.content)
                     }
                 </div>

@@ -43,57 +43,14 @@ export class SignInComponent extends React.PureComponent{
         console.log("hello");
         SpotigramClient.post("/users/login",creds).then(
             resp=>{
-                if(resp.status === 200){
-                    console.log(resp);
-                    SpotigramClient.defaults.headers.common['Authorization'] = resp.headers.authentication;
-                    this.setState({
-                        ...this.state,
-                        failed:false
-                    })
-                    this.props.storeData(resp.data);
-                    // this.props.storeAuth(resp.data.replies);
-                    window.location = "/profile";
-                }
-                else{
-                    this.setState({
-                        ...this.state,
-                        failed:true
-                    })
-                }
-                
-                
+                SpotigramClient.defaults.headers.common['Authorization'] = resp.headers.authentication;
+                this.props.storeData(resp.data);
+                window.location = "/profile";
+            });
+            this.setState({
+                ...this.state,
+                failed:true
             })
-
-        // fetch('http://localhost:8088/users/login', {
-        //     method: 'POST',
-        //     body: JSON.stringify(creds),
-        //     headers: {
-        //     'Content-Type': 'application/json'
-        //     },
-        //     credentials: 'include'
-        // }).then(resp=>{
-        //     if(resp.status === 200){
-        //         this.setState({
-        //             ...this.state,
-        //             failed:false
-        //         })
-        //         resp.json().then(r=>{
-        //             this.props.storeData(r);
-        //             this.props.storeAuth(resp.headers.get("authentication"));
-        //             this.setState({
-        //                 ...this.state,
-        //                 success:true
-        //             })
-        //             console.log(this.props.authentication);
-        //             //window.location = "/profile";
-        //         })
-        //     }else{
-        //         this.setState({
-        //             ...this.state,
-        //             failed:true
-        //         })
-        //     }
-        // })
     }
 
 
