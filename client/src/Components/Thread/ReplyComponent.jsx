@@ -7,9 +7,10 @@ import PropTypes from 'prop-types';
 export class ReplyComponent extends React.Component{
 
     render(){
+        console.log(this.props);
         return(
             <React.Fragment>
-                {this.props.reply.author} says "{this.props.reply.content}"
+                {this.props.author} says "{this.props.content}"<br />
             </React.Fragment>           
         )
     }
