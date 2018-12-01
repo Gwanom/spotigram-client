@@ -55,7 +55,7 @@ export class PostsComponent extends React.Component {
             <React.Fragment>
                 {
                     this.state.visible &&
-                    this.props.userData.threadEntries.map(replies => 
+                    this.state.posts.map(replies => 
                         <PostComponent key={replies.postId} post={replies}/>)
                 }
             </React.Fragment>

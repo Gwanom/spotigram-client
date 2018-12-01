@@ -1,13 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as userAction from "../../Redux/Actions/User.Actions";
-import ProfileComponent  from "../Users/ProfileComponent";
-import {ReplyComponent} from "./ReplyComponent";
-import {NewReplyComponent} from "./NewReplyComponent";
+import ProfileComponent from "../Users/ProfileComponent";
+import { ReplyComponent } from "./ReplyComponent";
+import { NewReplyComponent } from "./NewReplyComponent";
 import PropTypes from 'prop-types';
 import SpotigramClient from "../../Utilities/HTTPHelper";
 
-export class PostComponent extends React.Component{
+export class PostComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,33 +20,29 @@ export class PostComponent extends React.Component{
 
     componentDidMount() {
         SpotigramClient.get(`replies/parent/${this.props.post.postId}`)
-        .then( resp => {
-            this.setState({
-                ...this.state,
-                replies: resp.data,
-                visible: true
-            })
-        });
+            .then(resp => {
+                this.setState({
+                    ...this.state,
+                    replies: resp.data,
+                    visible: true
+                })
+            });
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <React.Fragment>
-                <div>
-                    <label>
-                        
-                    </label>
-                    {/* Subject: {this.props.post.topicSong.songTitle} by {this.props.post.topicArtist.name}, from the album {this.props.post.topicAlbum.title}<br />
-                    By: {this.props.post.author.username} {this.props.post.content}<br />
+                <div className="border border-info rounded post-container">
+                    <p className="main-post-content">{this.props.post.content}</p>
                     {
                         this.state.visible === true &&
                         this.state.replies.map(replies =>
-                        <ReplyComponent key={replies.replyId} author={replies.author.username} content={replies.content}/>)
-                    } */}
-                    {/* <NewReplyComponent id={this.props.id} user={this}/><br /> */}
+                            <ReplyComponent key={replies.replyId} author={replies.author.username} content={replies.content} />)
+                    }
+                    <NewReplyComponent id={this.props.id} user={this} /><br />
+                    <span className="tags">#{this.props.post.topicSong.songTitle}, #{this.props.post.topicArtist.name}, #{this.props.post.topicAlbum.title}</span>
                 </div>
-                
-            </React.Fragment>           
+            </React.Fragment>
         )
     }
 }
@@ -55,8 +51,8 @@ PostComponent.propTypes = {
     post: PropTypes.object.isRequired
 }
 
-const mapStateToProps = (state) =>{
-    return{
+const mapStateToProps = (state) => {
+    return {
         userData: state.userReducer
     }
 }
@@ -65,4 +61,4 @@ const mapDispatchToProps = {
     storeData: userAction.storeData
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(PostComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(PostComponent);

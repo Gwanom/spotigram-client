@@ -9,9 +9,9 @@ export class ReplyComponent extends React.Component{
     render(){
         console.log(this.props);
         return(
-            <React.Fragment>
-                {this.props.author} says "{this.props.content}"<br />
-            </React.Fragment>           
+            <p className="reply-content">
+                {this.props.author}: {this.props.content}<br />
+            </p>           
         )
     }
 }

@@ -46,12 +46,9 @@ export class NewReplyComponent extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div className="input-group mb-3" onSubmit={this.submitReply}>
-                    <div className="input-group-prepend">
-                        <span className="input-group-text">New Reply</span>
-                    </div>
-                    <textarea className="form-control" aria-label="New Reply" onChange={this.setContent}/>
-                    <button type="button" className="btn btn-outline-secondary">Submit Reply</button>
+                <div className="input-group mb-3 new-reply" onSubmit={this.submitReply}>
+                    <input type="text" className="form-control" aria-label="New Reply" onChange={this.setContent}/>
+                    <button type="button" className="btn btn-outline-secondary">Reply</button>
                 </div>
             </React.Fragment>
         )
