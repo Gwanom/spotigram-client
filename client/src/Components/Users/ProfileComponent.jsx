@@ -7,8 +7,6 @@ import SpotigramClient from "../../Utilities/HTTPHelper";
 import PostsComponent from "../Thread/PostsComponent"
 
 export class ProfileComponent extends React.PureComponent {
-
-    
     render() {
         return (
             <React.Fragment>

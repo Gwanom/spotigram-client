@@ -1,50 +1,58 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as userAction from "../../Redux/Actions/User.Actions";
-import ProfileComponent  from "./ProfileComponent";
+import ProfileComponent  from "../Users/ProfileComponent";
 import {ReplyComponent} from "./ReplyComponent";
 import {NewReplyComponent} from "./NewReplyComponent";
 import PropTypes from 'prop-types';
+import SpotigramClient from "../../Utilities/HTTPHelper";
 
 export class PostComponent extends React.Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            replies: null,
+            post: null,
+            visible: false
+        }
+    }
+
 
     componentDidMount() {
-        fetch(`http://spotigram-env-1.m2phmu28yw.us-east-2.elasticbeanstalk.com/posts/${this.post.id}`)
-        .then(resp => resp.json())
-        .then(data => {
+        SpotigramClient.get(`replies/parent/${this.props.post.postId}`)
+        .then( resp => {
             this.setState({
-                post: data
+                ...this.state,
+                replies: resp.data,
+                visible: true
             })
-        })
-        fetch(`http://spotigram-env-1.m2phmu28yw.us-east-2.elasticbeanstalk.com/replies/parent/${this.post.id}`)
-        .then(resp => resp.json())
-        .then(data => {
-            this.setState({
-                replies: data
-            })
-        })
+        });
     }
 
     render(){
         return(
             <React.Fragment>
-                Subject: {this.state.post.topicSong.songTitle} by {this.state.post.topicArtist.name}, from the album {this.state.post.topicAlbum.title}
-                By: {this.state.post.author.username}
-                {this.state.post.content}
-                {this.state.replies.map(replies => 
-                    <ReplyComponent author={replies.author.username} content={replies.content}/>
-                    )
-                }
-                 {/* <NewReplyComponent id={this.props.id} user={this}/> */}
+                <div>
+                    <label>
+                        
+                    </label>
+                    {/* Subject: {this.props.post.topicSong.songTitle} by {this.props.post.topicArtist.name}, from the album {this.props.post.topicAlbum.title}<br />
+                    By: {this.props.post.author.username} {this.props.post.content}<br />
+                    {
+                        this.state.visible === true &&
+                        this.state.replies.map(replies =>
+                        <ReplyComponent key={replies.replyId} author={replies.author.username} content={replies.content}/>)
+                    } */}
+                    {/* <NewReplyComponent id={this.props.id} user={this}/><br /> */}
+                </div>
+                
             </React.Fragment>           
         )
     }
 }
 
 PostComponent.propTypes = {
-    post: PropTypes.shape({
-        id: PropTypes.number.isRequired
-    })
+    post: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) =>{
