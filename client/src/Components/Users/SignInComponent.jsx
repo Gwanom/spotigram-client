@@ -45,7 +45,8 @@ export class SignInComponent extends React.PureComponent {
         SpotigramClient.post("/users/login", creds)
             .then(resp => {
                 SpotigramClient.defaults.headers.common['Authorization'] = resp.headers.authentication;
-                this.props.storeData(resp.data);
+                this.props.storeData(resp.data.info[0]);
+                console.log(this.props.userData);
                 window.location = "/profile";
             })
             .catch(err => {
