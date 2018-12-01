@@ -63,6 +63,10 @@ export class PostsComponent extends React.Component {
     }
 }
 
+PostsComponent.propTypes = {
+    type: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired
+}
 
 const mapStateToProps = (state) =>{
     return{
