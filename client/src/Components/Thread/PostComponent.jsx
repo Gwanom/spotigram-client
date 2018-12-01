@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import * as userAction from "../../Redux/Actions/User.Actions";
 import ProfileComponent from "../Users/ProfileComponent";
 import { ReplyComponent } from "./ReplyComponent";
-import { NewReplyComponent } from "./NewReplyComponent";
+import NewReplyComponent  from "./NewReplyComponent";
 import PropTypes from 'prop-types';
 import SpotigramClient from "../../Utilities/HTTPHelper";
 
@@ -39,7 +39,7 @@ export class PostComponent extends React.Component {
                         this.state.replies.map(replies =>
                             <ReplyComponent key={replies.replyId} author={replies.author.username} content={replies.content} />)
                     }
-                    <NewReplyComponent id={this.props.id} user={this} /><br />
+                    <NewReplyComponent id={this.props.post} user={this} /><br />
                     <span className="tags">#{this.props.post.topicSong.songTitle}, #{this.props.post.topicArtist.name}, #{this.props.post.topicAlbum.title}</span>
                 </div>
             </React.Fragment>

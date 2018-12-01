@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import * as userAction from "../../Redux/Actions/User.Actions";
 import ProfileComponent  from "../Users/ProfileComponent";
 import PropTypes from 'prop-types';
+import SpotigramClient from "../../Utilities/HTTPHelper";
 
 export class NewReplyComponent extends React.Component {
     constructor(props) {
@@ -23,44 +24,39 @@ export class NewReplyComponent extends React.Component {
 
     submitReply = (event) => {
         event.preventDefault();
+        
         let reply = {
-            "replyId": 0,
             "parent": {
-                "postId": this.state.id
+                "postId": this.props.id.postId
             },
             "author": {
-                "userID": this.state.user
+                "userID": this.props.userData.userEntries.userID
             },
             "content": this.state.content
         }
-        fetch("http://spotigram-env-1.m2phmu28yw.us-east-2.elasticbeanstalk.com/replies", {
-            method: 'POST',
-            body: JSON.stringify(reply),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            credentials: 'include'
-        })
+        SpotigramClient.post("/replies",reply)
+        // fetch("http://spotigram-env-1.m2phmu28yw.us-east-2.elasticbeanstalk.com/replies", {
+        //     method: 'POST',
+        //     body: JSON.stringify(reply),
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     credentials: 'include'
+        // })
     }
 
     render() {
         return (
             <React.Fragment>
-                <div className="input-group mb-3 new-reply" onSubmit={this.submitReply}>
+                <div className="input-group mb-3 new-reply">
                     <input type="text" className="form-control" aria-label="New Reply" onChange={this.setContent}/>
-                    <button type="button" className="btn btn-outline-secondary">Reply</button>
+                    <button  onClick={this.submitReply} type="button" className="btn btn-outline-secondary">Reply</button>
                 </div>
             </React.Fragment>
         )
     }
 }
 
-NewReplyComponent.propTypes = {
-    reply: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        user: PropTypes.number.isRequired
-    })
-}
 
 const mapStateToProps = (state) =>{
     return{
