@@ -1,7 +1,6 @@
 import React from "react";
 import {SignUpComponent} from "./SignUpComponent";
 import SignInComponent  from "./SignInComponent";
-import Background from '../LoginBackground.png';
 
 
 export class HomeComponent extends React.Component{
